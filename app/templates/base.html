@@ -108,9 +108,15 @@
 {#                            </li>#}
 {#                            <li role="separator" class="divider"></li>#}
                             <li>
-                                <a href="#">
+                                <a href="{{ url_for('main.user_account', username = current_user.name) }}">
                                     <span class="glyphicon glyphicon-heart" aria-hidden="true"></span>
-                                    Wishlist  <span class="badge">0</span>
+                                    Wishlist  <span id="wishListBadge" class="badge">0</span>
+                                    <script>
+                                        $.ajax('/getWishCounts/' + '{{ current_user.email }}').done(function (output) {
+                                            $("#wishListBadge").text(output);
+                                            $()
+                                        });
+                                    </script>
                                 </a>
                             </li>
                             <li>

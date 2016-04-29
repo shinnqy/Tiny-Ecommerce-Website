@@ -204,6 +204,8 @@ def interestInfoHandler():
 	if (current_user.email not in postItem.interester_list):
 		postItem.interester_list.append(current_user.email)
 		postItem.put()
+		current_user.wish_list.append(postItem.key.id())
+		current_user.put()
 		return "added ok"
 	else:
 		return "cannot add again"
@@ -233,7 +235,7 @@ def setBuyerHandler():
 		return "cannot set again"
 
 @auth.route('/rateUserHandler', methods = ['POST'])
-# @login_required
+@login_required
 def rateUserHandler():
 	rateScore = request.form.get("rateScore")
 	useremail = request.form.get("useremail")
@@ -248,3 +250,11 @@ def rateUserHandler():
 	current_user.rateCounts -= 1
 	current_user.put()
 	return "rate ok"
+
+@auth.route('/getWishCounts/<useremail>', methods = ['GET'])
+@login_required
+def getWishCounts(useremail):
+	qry = User.query(User.key == ndb.Key(User, useremail))
+	user = qry.fetch()[0]
+
+	return str(len(user.wish_list))

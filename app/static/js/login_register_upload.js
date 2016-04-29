@@ -231,6 +231,7 @@ $(document).ready(function(){
 			dateType: 'html'
 		}).done(function (output) {
 			alert(output);
+			window.location.assign(window.location);
 			console.log(output);
 			console.log("Post setBuyer successfully!");
 		}).fail(function () {

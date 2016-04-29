@@ -42,7 +42,12 @@ def user_account(username):
 	buyerQryResult = ndb.gql(buyerQry).fetch()
 	buyerResult = [item.buyer_email.encode("utf-8") for item in buyerQryResult]
 
-	return render_template('userAccount.html', user=user, posts=posts, avatorResult=avatorResult, buyerResult=buyerResult)
+	wishListItems = [DatastoreFile.get_by_id(int(item)) for item in user.wish_list]
+	# if len(user.wish_list) > 0:
+	# 	for i in user.wish_list:
+	# 		item = DatastoreFile.get_by_id(int(i))
+
+	return render_template('userAccount.html', user=user, posts=posts, avatorResult=avatorResult, buyerResult=buyerResult, wishListItems=wishListItems)
 
 # @main.route('/user_account', methods = ['GET'])
 # def user_account():

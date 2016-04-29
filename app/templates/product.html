@@ -54,6 +54,8 @@
                     {{ postItem.itemName }}
                     {% if postItem.haveExchange %}
                         <span>(Exchanged)</span>
+                    {% elif postItem.isDuringExchange %}
+                        <span>(During Exchange)</span>
                     {% endif %}
                 </h2>
 				Posted by: <a href="{{ url_for('main.user_account', username=postItem.user_name) }}">{{ postItem.user_name }}</a> <br>
@@ -77,7 +79,7 @@
 				<h3 class="text-warning">Value: <span>{{ postItem.estimateValue }} HKD</span></h3>
 				<p class="text-muted">{{ postItem.description }}</p>
 				<p>
-					{% if current_user.email != postItem.user_email and not postItem.haveExchange %}
+					{% if current_user.email != postItem.user_email and not postItem.haveExchange and not postItem.isDuringExchange %}
                     <button type="button" class="btn btn-warning" onclick="addToInteres({{ postItem.key.id() }})">&nbsp;&nbsp;I want it !!&nbsp;&nbsp;</button>
                     {% endif %}
 					<a href="{{ url_for('main.user_account', username=postItem.user_name) }}">
@@ -97,10 +99,14 @@
                 <p>
                     <b>Interested users list: </b>
                     {% for interester in postItem.interester_list %}
-                        {% if interester == postItem.buyer_email %}
-                        <button type="button" class="btn btn-primary" onclick="setBuyer(this, {{ postItem.key.id() }})">{{ interester }}</button>
+                        {% if postItem.isDuringExchange %}
+                            {% if interester == postItem.buyer_email %}
+                            <button type="button" class="btn btn-primary" onclick="setBuyer(this, {{ postItem.key.id() }})">{{ interester }}</button>
+                            {% else %}
+                            <button disabled="disabled" type="button" class="btn btn-primary" onclick="setBuyer(this, {{ postItem.key.id() }})">{{ interester }}</button>
+                            {% endif %}
                         {% else %}
-                        <button disabled="disabled" type="button" class="btn btn-primary" onclick="setBuyer(this, {{ postItem.key.id() }})">{{ interester }}</button>
+                            <button type="button" class="btn btn-primary" onclick="setBuyer(this, {{ postItem.key.id() }})">{{ interester }}</button>
                         {% endif %}
                     {% endfor %}
                 </p>

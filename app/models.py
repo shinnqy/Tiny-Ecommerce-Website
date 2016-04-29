@@ -110,6 +110,8 @@ class User(ndb.Model, UserMixin):
 	ratedCounts = ndb.IntegerProperty(default=0)
 	rateScore = ndb.StringProperty(default="0")
 
+	wish_list = ndb.JsonProperty(default=[])
+
 	# followee = ndb.StructuredProperty(Followee, repeated = True)
 	# follower = ndb.StructuredProperty(Follower, repeated = True)
 
