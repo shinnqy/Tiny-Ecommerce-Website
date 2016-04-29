@@ -224,6 +224,7 @@ def setBuyerHandler():
 
 	if (postItem.buyer_email == "NoOne"):
 		postItem.buyer_email = buyeremail
+		postItem.isDuringExchange = True
 		postItem.put()
 		user.rateCounts += 1
 		user.put()

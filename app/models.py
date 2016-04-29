@@ -65,6 +65,7 @@ class DatastoreFile(ndb.Model):
 	user_name = ndb.StringProperty()
 	user_avator_link = ndb.StringProperty()
 
+	isDuringExchange = ndb.BooleanProperty(default=False)
 	haveExchange = ndb.BooleanProperty(default=False)
 	buyer_email = ndb.StringProperty(default="NoOne")
 	interester_list = ndb.JsonProperty(default=[])
