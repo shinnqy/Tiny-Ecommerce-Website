@@ -161,7 +161,7 @@
                                     {% if current_user.is_authenticated and current_user == user %}
                                     <p>
                                         {% if post.haveExchange %}
-                                            <button disabled="disabled" class="btn btn-primary" type="button" id="haveExchange" onclick="haveExchange({{ post.key.id() }})">Have Exchanged</button>
+                                            <button disabled="disabled" class="btn btn-primary" type="button" id="haveExchange" onclick="haveExchange({{ post.key.id() }})">Exchanged</button>
                                         {% else %}
                                             <button class="btn btn-primary" type="button" id="haveExchange" onclick="haveExchange({{ post.key.id() }}, this)">Exchanged</button>
                                         {% endif %}
